@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
+
+:root {
+  --text-color: #eee;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: inherit;
+}
+
+body {
+  color: var(--text-color);
+}
+
+.background-photo {
+  width: 100vw;
+  height: 100vh;
+}
+
+.filter {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.6;
+}
+
+.frame {
+  position: absolute;
+  inset: 50px;
+  width: auto;
+  height: auto;
+  border: 10px solid var(--text-color);
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.kanji {
+  font-size: 200px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.meaning {
+  font-size: 20px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.fa-github,
+.fa-linkedin {
+  margin-left: 0.5rem;
+}
+
+.credits,
+.me {
+  font-size: 13px;
+  vertical-align: center;
+}
+
+.credits {
+  flex: 3;
+  text-align: left;
+  margin: 0 0 17px 50px;
+}
+
+.me {
+  flex: 5;
+  text-align: right;
+  margin: 0 50px 17px 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.credits a {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 802px) {
+  .frame {
+    inset: 50px;
+    border: 5px solid var(--text-color);
+    border-radius: 1rem;
+  }
+
+  .credits,
+  .me {
+    font-size: 12px;
+  }
+
+  .credits {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin: 0 0 50px 17px;
+  }
+
+  .me {
+    writing-mode: vertical-rl;
+    margin: 0 17px 50px 0;
+  }
+
+  .fa-github,
+  .fa-linkedin {
+    margin-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .kanji {
+    font-size: 120px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .meaning {
+    font-size: 12px;
+  }
+}
