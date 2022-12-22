@@ -26,7 +26,7 @@ function displayScreen(lastKanji) {
 }
 
 async function getLastKanji() {
-  const connection = await fetch('https://mauricyukio.github.io/fetchable/kanji.json/kanji')
+  const connection = await fetch('https://mauricyukio.github.io/fetchable/db.json/kanji')
   const kanjiHistory = await connection.json()
   const lastKanji = kanjiHistory[Object.keys(kanjiHistory)[Object.keys(kanjiHistory).length - 1]]
   return lastKanji
@@ -108,7 +108,7 @@ function displayPhotoOnScreen(photo) {
 
 async function updateKanjiHistory(kanji, meaning, photo) {
   const now = new Date().toJSON()
-  const connection = await fetch('https://mauricyukio.github.io/fetchable/kanji.json/kanji', {
+  const connection = await fetch('https://mauricyukio.github.io/fetchable/db.json/kanji', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
