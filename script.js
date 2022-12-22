@@ -1,8 +1,8 @@
-const backgroundPhoto = document.querySelector('.background-photo')
-const credits = document.querySelector('.credits')
-
 const kanjiElement = document.querySelector('.kanji')
 const meaningElement = document.querySelector('.meaning')
+
+const backgroundPhoto = document.querySelector('.background-photo')
+const credits = document.querySelector('.credits')
 
 // const backgroundPhotoObject = {
 //   id: 'Dwu85P9SOIk',
@@ -83,21 +83,20 @@ const meaningElement = document.querySelector('.meaning')
 //   },
 // }
 
-main()
+displayOnScreen()
 
-async function main() {
+async function generateNewKanji() {
   // Get random kanji and kanji info from Kanji API
   const kanjiList = await getKanjiList()
   const randomKanji = getRandomKanji(kanjiList)
   const kanjiInfo = await getKanjiInfo(randomKanji)
   const kanjiMeaning = kanjiInfo.meanings[0]
 
-  kanjiElement.innerHTML = randomKanji
-  meaningElement.innerHTML = `- ${kanjiMeaning} -`
-
-  // Get random Japan picture from Unsplash API
+  // Get random related picture from Unsplash API
   const backgroundPhotoObject = await getBackgroundPhoto(kanjiMeaning)
-  displayPhotoOnScreen(backgroundPhotoObject)
+
+  // Save new kanji to the Kanji History database
+  updateKanjiHistory(randomKanji, kanjiMeaning, backgroundPhotoObject)
 }
 
 async function getKanjiList() {
@@ -143,15 +142,48 @@ async function getBackgroundPhoto(query) {
   }
 }
 
-function displayPhotoOnScreen(backgroundPhotoObject) {
-  const backgroundPhotoURL = backgroundPhotoObject.urls.full
-  const backgroundPhotoPage = backgroundPhotoObject.links.html
-  const backgroundPhotoAuthor = backgroundPhotoObject.user.name
-  const backgroundPhotoAuthorLink = backgroundPhotoObject.user.portfolio_url
+function displayPhotoOnScreen(photo) {
+  const backgroundPhotoURL = photo.url
+  const backgroundPhotoPage = photo.page
+  const backgroundPhotoAuthor = photo.author
+  const backgroundPhotoAuthorLink = photo.authorLink
 
   backgroundPhoto.style.background = `url("${backgroundPhotoURL}")`
   backgroundPhoto.style.backgroundSize = 'cover'
   backgroundPhoto.style.backgroundPosition = 'center'
 
-  credits.innerHTML = `Photo by <a href='${backgroundPhotoAuthorLink}'>${backgroundPhotoAuthor}</a> on <a href=${backgroundPhotoPage}>Unsplash</a>`
+  credits.innerHTML = `<p>Kanji by <a href="https://kanjiapi.dev/">KanjiAPI</a></p>
+  <p>Photo by <a href='${backgroundPhotoAuthorLink}'>${backgroundPhotoAuthor}</a> on <a href=${backgroundPhotoPage}>Unsplash</a></p>`
+}
+
+async function updateKanjiHistory(kanji, meaning, photo) {
+  const connection = await fetch('http://localhost:3000/kanji', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      kanji: kanji,
+      meaning: meaning,
+      photo: {
+        url: photo.urls.full,
+        page: photo.links.html,
+        author: photo.user.name,
+        authorLink: photo.user.portfolio_url || photo.user.links.html,
+      },
+    }),
+  })
+
+  const convertedConnection = await connection.json()
+  return convertedConnection
+}
+
+async function displayOnScreen() {
+  const connection = await fetch('http://localhost:3000/kanji')
+  const kanjiHistory = await connection.json()
+  const lastKanji = kanjiHistory[Object.keys(kanjiHistory)[Object.keys(kanjiHistory).length - 1]]
+
+  kanjiElement.innerHTML = `<a href="https://jisho.org/search/${lastKanji.kanji}">${lastKanji.kanji}</a>`
+  meaningElement.innerHTML = `- ${lastKanji.meaning} -`
+  displayPhotoOnScreen(lastKanji.photo)
 }
