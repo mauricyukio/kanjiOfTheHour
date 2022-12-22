@@ -103,7 +103,7 @@ async function main() {
 async function getKanjiList() {
   try {
     const response = await fetch('https://kanjiapi.dev/v1/kanji/joyo')
-    const allKanjiArray = response.json()
+    const allKanjiArray = await response.json()
     return allKanjiArray
   } catch (error) {
     console.log(error)
@@ -118,7 +118,7 @@ function getRandomKanji(list) {
 async function getKanjiInfo(kanji) {
   try {
     const response = await fetch(`https://kanjiapi.dev/v1/kanji/${kanji}`)
-    const kanjiInfo = response.json()
+    const kanjiInfo = await response.json()
     return kanjiInfo
   } catch (error) {
     console.log(error)
@@ -136,7 +136,7 @@ async function getBackgroundPhoto(query) {
         `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=japan&orientation=landscape`
       )
     }
-    const randomPicture = response.json()
+    const randomPicture = await response.json()
     return randomPicture
   } catch (error) {
     console.log(error)
