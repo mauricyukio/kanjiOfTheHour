@@ -3,11 +3,14 @@
 
 :root {
   --text-color: #eee;
+  --title-screen-bg-color: #000;
+  --title-kanji-color: #1a1a1a;
 }
 
 html {
   box-sizing: border-box;
   font-family: 'Noto Sans', sans-serif;
+  overflow: hidden;
 }
 
 ::selection {
@@ -25,7 +28,61 @@ body {
   color: var(--text-color);
 }
 
-.background-photo {
+.title-screen {
+  position: absolute;
+  z-index: 3;
+  background-color: var(--title-screen-bg-color);
+  color: var(--text-color);
+  transition: opacity 2s ease-in-out;
+}
+
+.title,
+.title-kanji {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 100vw;
+  text-align: center;
+}
+
+.title {
+  font-size: 7vw;
+  z-index: 4;
+}
+
+.title-kanji {
+  font-size: 20vw;
+  color: var(--title-kanji-color);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.loading-circle {
+  color: var(--text-color);
+  width: 10vw;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  translate: -50%;
+  height: auto;
+}
+
+.logo-img {
+  margin-right: 10px;
+  width: 45px;
+  height: auto;
+  translate: 0 12px;
+}
+
+.spinning {
+  animation: spin infinite 10s linear;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.background-photo,
+.title-screen {
   width: 100vw;
   height: 100vh;
 }
@@ -39,11 +96,11 @@ body {
 
 .frame {
   position: absolute;
-  inset: 50px;
+  inset: 70px;
   width: auto;
   height: auto;
   border: 10px solid var(--text-color);
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,36 +116,61 @@ body {
   font-size: 20px;
 }
 
+header,
 footer {
   position: fixed;
-  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
-.fa-github,
-.fa-linkedin {
-  margin-left: 0.5rem;
+header {
+  top: 0;
 }
 
+footer {
+  bottom: 0;
+}
+
+.logo,
+.instagram-page,
 .credits,
 .me {
   font-size: 13px;
   vertical-align: center;
 }
 
+.logo {
+  flex: 1;
+  font-size: 30px;
+  text-align: left;
+  margin-left: 70px;
+}
+
+.instagram-page {
+  flex: 1;
+  text-align: right;
+  margin: 18px 70px 0 0;
+}
+
 .credits {
   flex: 3;
   text-align: left;
-  margin: 0 0 8px 50px;
+  margin: 0 0 18px 70px;
 }
 
 .me {
   flex: 5;
   text-align: right;
-  margin: 0 50px 8px 0;
+  margin: 0 70px 18px 0;
+}
+
+.fa-github,
+.fa-linkedin,
+.fa-instagram {
+  margin-left: 0.5rem;
 }
 
 a {
@@ -107,9 +189,27 @@ a {
     border-radius: 1rem;
   }
 
+  .instagram-page,
   .credits,
   .me {
     font-size: 12px;
+  }
+
+  .logo {
+    position: absolute;
+    margin: 0;
+    top: 2px;
+    font-size: 20px;
+  }
+
+  .logo-img {
+    width: 30px;
+    translate: 0 7px;
+  }
+
+  .instagram-page {
+    writing-mode: vertical-rl;
+    margin: 50px 17px 0 0;
   }
 
   .credits {
@@ -125,7 +225,8 @@ a {
   }
 
   .fa-github,
-  .fa-linkedin {
+  .fa-linkedin,
+  .fa-instagram {
     margin-top: 0.5rem;
   }
 }
@@ -138,5 +239,14 @@ a {
 
   .meaning {
     font-size: 12px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

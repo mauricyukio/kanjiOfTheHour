@@ -7,28 +7,48 @@
     <link href="favicon.svg" rel="icon" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://kit.fontawesome.com/23d04c3acd.js" crossorigin="anonymous"></script>
-    <title>KanjiOfTheHour</title>
+    <title>kanjiOfTheHour</title>
   </head>
   <body>
-    <div class="background-photo">
-      <div class="filter"></div>
-      <div class="frame">
-        <h1 class="kanji"></h1>
-        <h2 class="meaning"></h2>
+    <header>
+      <h1 class="logo">
+        <img class="logo-img spinning" src="logo.png" alt="circle logo" />kanjiOfTheHour
+      </h1>
+      <p class="instagram-page">
+        <a href="https://www.instagram.com/kanjiofthehour/"
+          >@kanjiOfTheHour <i class="icon fa-brands fa-instagram"></i
+        ></a>
+      </p>
+    </header>
+
+    <main>
+      <div class="title-screen">
+        <h1 class="title">kanjiOfTheHour</h1>
+        <h1 class="title-kanji">時の漢字</h1>
+        <img class="loading-circle spinning" src="logo.png" alt="circle spinning" />
       </div>
-      <footer>
-        <p class="credits"></p>
-        <p class="me">
-          Designed and developed by Nagashima Yukio, 2022
-          <a href="https://github.com/mauricyukio">
-            <i class="icon fa-brands fa-github"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/mauricionagashima/">
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
-        </p>
-      </footer>
-    </div>
-    <script src="script.js"></script>
+      <div class="background-photo">
+        <div class="filter"></div>
+        <div class="frame">
+          <h1 class="kanji"></h1>
+          <h2 class="meaning"></h2>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p class="credits"></p>
+      <p class="me">
+        Designed and developed by Nagashima Yukio, 2022
+        <a href="https://github.com/mauricyukio">
+          <i class="icon fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/mauricionagashima/">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </p>
+    </footer>
+
+    <script src="script.js" type="module"></script>
   </body>
 </html>
