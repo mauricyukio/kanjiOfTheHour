@@ -26,7 +26,7 @@ function displayScreen(lastKanji) {
 }
 
 async function getLastKanji() {
-  const connection = await fetch('https://mauricyukio.github.io/fetchable/db.json/kanji')
+  const connection = await fetch('https://fetchable-ct1s3c6wh-mauricyukio.vercel.app/db.json/kanji')
   const kanjiHistory = await connection.json()
   const lastKanji = kanjiHistory[Object.keys(kanjiHistory)[Object.keys(kanjiHistory).length - 1]]
   return lastKanji
@@ -108,23 +108,26 @@ function displayPhotoOnScreen(photo) {
 
 async function updateKanjiHistory(kanji, meaning, photo) {
   const now = new Date().toJSON()
-  const connection = await fetch('https://mauricyukio.github.io/fetchable/db.json/kanji', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      kanji: kanji,
-      meaning: meaning,
-      photo: {
-        url: photo.urls.full,
-        page: photo.links.html,
-        author: photo.user.name,
-        authorLink: photo.user.portfolio_url || photo.user.links.html,
+  const connection = await fetch(
+    'https://fetchable-ct1s3c6wh-mauricyukio.vercel.app/db.json/kanji',
+    {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
       },
-      entryDate: now,
-    }),
-  })
+      body: JSON.stringify({
+        kanji: kanji,
+        meaning: meaning,
+        photo: {
+          url: photo.urls.full,
+          page: photo.links.html,
+          author: photo.user.name,
+          authorLink: photo.user.portfolio_url || photo.user.links.html,
+        },
+        entryDate: now,
+      }),
+    }
+  )
 
   const convertedConnection = await connection.json()
   return convertedConnection
