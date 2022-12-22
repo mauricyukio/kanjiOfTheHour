@@ -26,7 +26,9 @@ function displayScreen(lastKanji) {
 }
 
 async function getLastKanji() {
-  const connection = await fetch('http://localhost:3000/kanji')
+  const connection = await fetch(
+    'http://https://raw.githubusercontent.com/mauricyukio/kanjiOfTheHour/main/db.json'
+  )
   const kanjiHistory = await connection.json()
   const lastKanji = kanjiHistory[Object.keys(kanjiHistory)[Object.keys(kanjiHistory).length - 1]]
   return lastKanji
@@ -108,23 +110,26 @@ function displayPhotoOnScreen(photo) {
 
 async function updateKanjiHistory(kanji, meaning, photo) {
   const now = new Date().toJSON()
-  const connection = await fetch('http://localhost:3000/kanji', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      kanji: kanji,
-      meaning: meaning,
-      photo: {
-        url: photo.urls.full,
-        page: photo.links.html,
-        author: photo.user.name,
-        authorLink: photo.user.portfolio_url || photo.user.links.html,
+  const connection = await fetch(
+    'http://https://raw.githubusercontent.com/mauricyukio/kanjiOfTheHour/main/db.json',
+    {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
       },
-      entryDate: now,
-    }),
-  })
+      body: JSON.stringify({
+        kanji: kanji,
+        meaning: meaning,
+        photo: {
+          url: photo.urls.full,
+          page: photo.links.html,
+          author: photo.user.name,
+          authorLink: photo.user.portfolio_url || photo.user.links.html,
+        },
+        entryDate: now,
+      }),
+    }
+  )
 
   const convertedConnection = await connection.json()
   return convertedConnection
