@@ -26,7 +26,7 @@ function displayScreen(lastKanji) {
 }
 
 async function getLastKanji() {
-  const connection = await fetch('https://fetchable-ct1s3c6wh-mauricyukio.vercel.app/db.json/kanji')
+  const connection = await fetch('http://localhost:3000/kanji')
   const kanjiHistory = await connection.json()
   const lastKanji = kanjiHistory[Object.keys(kanjiHistory)[Object.keys(kanjiHistory).length - 1]]
   return lastKanji
@@ -75,7 +75,7 @@ async function getKanjiInfo(kanji) {
 }
 
 async function getBackgroundPhoto(query) {
-  const apiKey = 'fduTtxJ5GatUpLYtVTFoTz5ynsOF3VpVpxfXl9yTwbk'
+  const apiKey = process.env.API_KEY
   try {
     var response = await fetch(
       `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=${query}&orientation=landscape`
@@ -113,26 +113,23 @@ function displayPhotoOnScreen(photo) {
 
 async function updateKanjiHistory(kanji, meaning, photo) {
   const now = new Date().toJSON()
-  const connection = await fetch(
-    'https://fetchable-ct1s3c6wh-mauricyukio.vercel.app/db.json/kanji',
-    {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
+  const connection = await fetch('http://localhost:3000/kanji', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      kanji: kanji,
+      meaning: meaning,
+      photo: {
+        url: photo.urls.full,
+        page: photo.links.html,
+        author: photo.user.name,
+        authorLink: photo.user.portfolio_url || photo.user.links.html,
       },
-      body: JSON.stringify({
-        kanji: kanji,
-        meaning: meaning,
-        photo: {
-          url: photo.urls.full,
-          page: photo.links.html,
-          author: photo.user.name,
-          authorLink: photo.user.portfolio_url || photo.user.links.html,
-        },
-        entryDate: now,
-      }),
-    }
-  )
+      entryDate: now,
+    }),
+  })
 
   const convertedConnection = await connection.json()
   return convertedConnection
