@@ -56,14 +56,19 @@ body {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-.loading-circle {
+.loading-circle,
+.wait-kanji {
   color: var(--text-color);
-  width: 10vw;
   position: absolute;
-  top: 70%;
   left: 50%;
   translate: -50%;
+}
+
+.loading-circle {
+  width: 10vw;
+  max-width: 200px;
   height: auto;
+  top: 70%;
 }
 
 .logo-img {
@@ -74,7 +79,7 @@ body {
 }
 
 .spinning {
-  animation: spin infinite 10s linear;
+  animation: spin infinite 5s linear;
 }
 
 .hide {
@@ -239,6 +244,12 @@ a {
 
   .meaning {
     font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .spinning {
+    animation: spin infinite 20s linear;
   }
 }
 

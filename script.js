@@ -17,7 +17,7 @@ async function main() {
 }
 
 function displayScreen(lastKanji) {
-  kanjiElement.innerHTML = `<a href="https://jisho.org/search/${lastKanji.kanji}">${lastKanji.kanji}</a>`
+  kanjiElement.innerHTML = `<a href="https://jisho.org/search/${lastKanji.kanji}" target="_blank" rel="noopener noreferrer">${lastKanji.kanji}</a>`
   meaningElement.innerHTML = `· ${lastKanji.meaning} ·`
   displayPhotoOnScreen(lastKanji.photo)
 
@@ -107,8 +107,8 @@ function displayPhotoOnScreen(photo) {
   backgroundPhoto.style.backgroundSize = 'cover'
   backgroundPhoto.style.backgroundPosition = 'center'
 
-  credits.innerHTML = `<p>Kanji by <a href="https://kanjiapi.dev/">KanjiAPI</a></p>
-  <p>Photo by <a href='${backgroundPhotoAuthorLink}'>${backgroundPhotoAuthor}</a> on <a href=${backgroundPhotoPage}>Unsplash</a></p>`
+  credits.innerHTML = `<p>Kanji by <a href="https://kanjiapi.dev/" target="_blank" rel="noopener noreferrer">KanjiAPI</a></p>
+  <p>Photo by <a href="${backgroundPhotoAuthorLink}" target="_blank" rel="noopener noreferrer">${backgroundPhotoAuthor}</a> on <a href="${backgroundPhotoPage}" target="_blank" rel="noopener noreferrer">Unsplash</a></p>`
 }
 
 async function updateKanjiHistory(kanji, meaning, photo) {
