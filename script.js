@@ -1,3 +1,6 @@
+import * as htmlToImage from './node_modules/html-to-image'
+import { toPng } from './node_modules/html-to-image'
+
 const kanjiElement = document.querySelector('.kanji')
 const meaningElement = document.querySelector('.meaning')
 
@@ -6,6 +9,31 @@ const backgroundPhoto = document.querySelector('.background-photo')
 const credits = document.querySelector('.credits')
 
 main()
+
+const printButton = document.querySelector('[data-print]')
+printButton.addEventListener('click', printScreen)
+
+function printScreen() {
+  // const canvas = document.createElement('canvas')
+  // canvas.width = window.innerWidth
+  // canvas.height = window.innerHeight
+
+  // const image = canvas.toDataURL('image/jpeg')
+  // console.log(image)
+
+  const body = document.querySelector('body')
+
+  htmlToImage
+    .toPng(body)
+    .then(function (dataUrl) {
+      var img = new Image()
+      img.src = dataUrl
+      document.body.appendChild(img)
+    })
+    .catch(function (error) {
+      console.error('oops, something went wrong!', error)
+    })
+}
 
 async function main() {
   const lastKanji = await getLastKanji()

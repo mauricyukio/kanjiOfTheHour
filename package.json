@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mauricyukio/kanji-of-the-day/issues"
   },
-  "homepage": "https://github.com/mauricyukio/kanji-of-the-day#readme"
+  "homepage": "https://github.com/mauricyukio/kanji-of-the-day#readme",
+  "dependencies": {
+    "html-to-image": "^1.11.3"
+  }
 }
