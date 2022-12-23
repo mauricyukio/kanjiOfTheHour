@@ -75,7 +75,7 @@ async function getKanjiInfo(kanji) {
 }
 
 async function getBackgroundPhoto(query) {
-  const apiKey = process.env.API_KEY
+  const apiKey = 'fduTtxJ5GatUpLYtVTFoTz5ynsOF3VpVpxfXl9yTwbk'
   try {
     var response = await fetch(
       `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=${query}&orientation=landscape`
