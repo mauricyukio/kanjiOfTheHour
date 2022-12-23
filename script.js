@@ -81,9 +81,14 @@ async function getBackgroundPhoto(query) {
       `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=${query}&orientation=landscape`
     )
     if (response.status === 404) {
-      response = await fetch(
-        `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=japan&orientation=landscape`
-      )
+      try {
+        response = await fetch(
+          `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=japan&orientation=landscape`
+        )
+      } catch (error) {
+        console.log(error)
+      }
+      throw new Error('No images available for this query. Showing a random Japan image instead.')
     }
     const randomPicture = await response.json()
     return randomPicture
