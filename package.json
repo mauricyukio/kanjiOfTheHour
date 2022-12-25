@@ -18,5 +18,8 @@
   "homepage": "https://github.com/mauricyukio/kanji-of-the-day#readme",
   "dependencies": {
     "html-to-image": "^1.11.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0"
   }
 }
